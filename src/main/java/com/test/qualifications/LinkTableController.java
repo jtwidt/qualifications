@@ -26,6 +26,8 @@ public class LinkTableController {
         Optional<User> user = userRepository.findById(linkTable.getUser().getId());
         Optional<Task> task = taskRepository.findById(linkTable.getTask().getId());
         if (task.isPresent() && user.isPresent()) {
+            linkTable.setUser(user.get());
+            linkTable.setTask(task.get());
             return linkTableRepository.save(linkTable);
         } else {
             return null;
@@ -33,10 +35,26 @@ public class LinkTableController {
     }
 
     // READ
+
+    // find by link table id
     @GetMapping("{id}")
     public LinkTable getTableById(@PathVariable Long id) {
         Optional<LinkTable> table =  linkTableRepository.findById(id);
         return table.orElse(null);
+    }
+
+    // find by user
+    @GetMapping("/user/{id}")
+    public Iterable<LinkTable> getByUser(@PathVariable Long id) {
+        Optional<User> user = userRepository.findById(id);
+        return user.map(value -> linkTableRepository.findByUser(value)).orElse(null);
+    }
+
+    // find by task
+    @GetMapping("/task/{id}")
+    public Iterable<LinkTable> getByTask(@PathVariable Long id) {
+        Optional<Task> task = taskRepository.findById(id);
+        return task.map(value -> linkTableRepository.findByTask(value)).orElse(null);
     }
 
     // UPDATE

@@ -3,6 +3,8 @@ package com.test.qualifications;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,10 +21,18 @@ public class UserController {
     }
 
     // READ
+
+    // find by ID
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
+    public User getUserById(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElse(null);
+    }
+
+    // find by last name
+    @GetMapping("/last/{lastName}")
+    public Iterable<User> getUserByLastName(@PathVariable String lastName) {
+        return userRepository.findByLastNameLike(lastName);
     }
 
     // UPDATE
@@ -88,6 +98,14 @@ public class UserController {
     }
 
     // DELETE
+    @DeleteMapping("/{id}")
+    public Map<String, Long> deleteUser(@PathVariable Long id) {
+        Optional<User> user = userRepository.findById(id);
+        user.ifPresent(userRepository::delete);
+        Map<String, Long> count = new HashMap<>();
+        count.put("count", userRepository.count());
+        return count;
+    }
 
     // LIST
     @GetMapping("")

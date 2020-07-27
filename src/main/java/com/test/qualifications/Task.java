@@ -16,7 +16,7 @@ public class Task {
     private String description;
     private Integer validDuration;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "task", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<LinkTable> tasks;
 

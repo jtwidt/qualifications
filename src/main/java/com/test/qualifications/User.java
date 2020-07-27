@@ -23,7 +23,7 @@ public class User {
     private String email;
     private String password;
     private String grade;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<LinkTable> tasks;
 
