@@ -1,6 +1,9 @@
 package com.test.qualifications;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table (name = "tasks")
@@ -12,6 +15,10 @@ public class Task {
     private String taskName;
     private String description;
     private Integer validDuration;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+    @JsonIgnore
+    private List<LinkTable> tasks;
 
     public Long getId() {
         return id;
@@ -43,5 +50,13 @@ public class Task {
 
     public void setValidDuration(Integer validDuration) {
         this.validDuration = validDuration;
+    }
+
+    public List<LinkTable> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<LinkTable> tasks) {
+        this.tasks = tasks;
     }
 }
