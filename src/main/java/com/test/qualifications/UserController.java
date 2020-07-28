@@ -35,6 +35,12 @@ public class UserController {
         return userRepository.findByLastNameLike(lastName);
     }
 
+    // find by unit
+    @GetMapping("/unit/{unit}")
+    public Iterable<User> getUsersByUnit(@PathVariable String unit) {
+        return userRepository.findByUnitLike(unit);
+    }
+
     // UPDATE
     @PatchMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
