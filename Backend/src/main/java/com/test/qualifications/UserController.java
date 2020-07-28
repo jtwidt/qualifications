@@ -41,6 +41,15 @@ public class UserController {
         return userRepository.findByUnitLike(unit);
     }
 
+    // find by email
+    @PostMapping("/email/")
+    public User getUserByEmail(@RequestBody User user) {
+        User retrievedUser = userRepository.findByEmail(user.getEmail());
+        if ((user.getEmail() == retrievedUser.getEmail()) && (user.getPassword() == retrievedUser.getPassword())) {
+            return retrievedUser;
+        } else return null;
+    }
+
     // UPDATE
     @PatchMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
@@ -98,9 +107,7 @@ public class UserController {
             }
 
             return userRepository.save(oldUser.get());
-        } else {
-            return null;
-        }
+        } else return null;
     }
 
     // DELETE
