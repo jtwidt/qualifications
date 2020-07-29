@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -15,6 +15,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import TableContainer from '@material-ui/core/TableContainer';
 import IconButton from '@material-ui/core/IconButton';
+import axios from 'axios';
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -104,14 +105,14 @@ const useStyles2 = makeStyles({
   },
 });
 
-const WeaponsQual = () => {
-  const classes = useStyle();
-  const [taskList, setTaskList] = useState();
+const Task = (props) => {
+  const classes = useStyles2();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, taskList.length - page * rowsPerPage);
+    rowsPerPage -
+    Math.min(rowsPerPage, props.tasks.length - page * rowsPerPage);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -121,16 +122,6 @@ const WeaponsQual = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(
-        `http://localhost:8080/task-complete/task/1`
-      );
-      setTaskList(response.data);
-    };
-    fetchData();
-  }, []);
 
   return (
     <div>
@@ -155,11 +146,11 @@ const WeaponsQual = () => {
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
-              ? taskList.slice(
+              ? props.tasks.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-              : taskList
+              : props.tasks
             ).map((task) => (
               <TableRow key={task.id} hover>
                 <TableCell>{task.user.grade}</TableCell>
@@ -176,7 +167,7 @@ const WeaponsQual = () => {
               <TablePagination
                 rowsPerPageOptions={[5, 10, 15]}
                 colSpan={3}
-                count={taskList.length}
+                count={props.tasks.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{
@@ -195,4 +186,4 @@ const WeaponsQual = () => {
   );
 };
 
-export default WeaponsQual;
+export default Task;

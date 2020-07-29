@@ -7,6 +7,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Fade from '@material-ui/core/Fade';
+import { Link } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,10 +66,17 @@ export default function NavBar() {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Member Administration</MenuItem>
-            <MenuItem onClick={handleClose}>Member Overview</MenuItem>
-            <MenuItem onClick={handleClose}>Task Overview</MenuItem>
+            {/* <MenuItem onClick={handleClose}>
+              <Link to="/admin">Member Administration</Link>
+            </MenuItem> */}
+            <MenuItem onClick={handleClose} component={Link} to="">
+              Member Overview
+            </MenuItem>
+            <MenuItem onClick={handleClose} component={Link} to="/tasks">
+              Task Overview
+            </MenuItem>
           </Menu>
+          <Typography>Menu</Typography>
         </Toolbar>
       </AppBar>
     </div>
