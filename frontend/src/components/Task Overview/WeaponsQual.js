@@ -104,14 +104,14 @@ const useStyles2 = makeStyles({
   },
 });
 
-const MemberTable = (props) => {
-  const classes = useStyles2();
+const WeaponsQual = () => {
+  const classes = useStyle();
+  const [taskList, setTaskList] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const emptyRows =
-    rowsPerPage -
-    Math.min(rowsPerPage, props.members.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, taskList.length - page * rowsPerPage);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -121,6 +121,16 @@ const MemberTable = (props) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        `http://localhost:8080/task-complete/task/1`
+      );
+      setTaskList(response.data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -138,27 +148,26 @@ const MemberTable = (props) => {
               <TableCell className={classes.headerCell}>Last Name</TableCell>
               <TableCell className={classes.headerCell}>Email</TableCell>
               <TableCell className={classes.headerCell}>AFSC</TableCell>
+              <TableCell className={classes.headerCell}>
+                Completion Date
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
-              ? props.members.slice(
+              ? taskList.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-              : props.members
-            ).map((member) => (
-              <TableRow
-                key={member.id}
-                hover
-                selected={props.selected === member.id}
-                onClick={() => props.changeId(member.id)}
-              >
-                <TableCell>{member.grade}</TableCell>
-                <TableCell>{member.firstName}</TableCell>
-                <TableCell>{member.lastName}</TableCell>
-                <TableCell>{member.email}</TableCell>
-                <TableCell>{member.afsc}</TableCell>
+              : taskList
+            ).map((task) => (
+              <TableRow key={task.id} hover>
+                <TableCell>{task.user.grade}</TableCell>
+                <TableCell>{task.user.firstName}</TableCell>
+                <TableCell>{task.user.lastName}</TableCell>
+                <TableCell>{task.user.email}</TableCell>
+                <TableCell>{task.user.afsc}</TableCell>
+                <TableCell>{task.completionDate}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -167,7 +176,7 @@ const MemberTable = (props) => {
               <TablePagination
                 rowsPerPageOptions={[5, 10, 15]}
                 colSpan={3}
-                count={props.members.length}
+                count={taskList.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{
@@ -186,4 +195,4 @@ const MemberTable = (props) => {
   );
 };
 
-export default MemberTable;
+export default WeaponsQual;

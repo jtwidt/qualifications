@@ -22,7 +22,7 @@ public class LinkTable {
     private Task task;
 
     @Column(columnDefinition = "date")
-    @JsonFormat(pattern = "dd MMM yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date completionDate;
 
     public Long getId() {
