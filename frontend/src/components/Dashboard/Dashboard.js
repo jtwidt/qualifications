@@ -4,7 +4,8 @@ import axios from 'axios';
 import MemberDetail from '../MemberDetail/MemberDetail';
 import NavBar from '../NavBar/NavBar';
 import TaskOverview from '../TaskOverview/TaskOverview';
-import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Admin from '../AdminDashboard/Admin';
 
 const Dashboard = () => {
   const [members, setMembers] = useState([]);
@@ -36,6 +37,9 @@ const Dashboard = () => {
         <Switch>
           <Route path="/tasks">
             <TaskOverview />
+          </Route>
+          <Route path="/admin">
+            <Admin />
           </Route>
           <Route>
             <MemberTable

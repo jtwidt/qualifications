@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -15,7 +15,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import TableContainer from '@material-ui/core/TableContainer';
 import IconButton from '@material-ui/core/IconButton';
-import axios from 'axios';
+import { Typography } from '@material-ui/core';
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -125,6 +125,10 @@ const Task = (props) => {
 
   return (
     <div>
+      <Typography variant={'subtitle1'}>
+        {props.tasks[0].task.description}
+      </Typography>
+      <br />
       <TableContainer component={Paper}>
         <Table
           className={classes.table}

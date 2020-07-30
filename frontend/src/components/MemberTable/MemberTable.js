@@ -122,6 +122,39 @@ const MemberTable = (props) => {
     setPage(0);
   };
 
+  const rankSwitch = (grade) => {
+    switch (grade) {
+      case 'E1':
+        return 'AB';
+      case 'E2':
+        return 'Amn';
+      case 'E3':
+        return 'A1C';
+      case 'E4':
+        return 'SrA';
+      case 'E5':
+        return 'SSgt';
+      case 'E6':
+        return 'TSgt';
+      case 'E7':
+        return 'MSgt';
+      case 'E8':
+        return 'SMSgt';
+      case 'E9':
+        return 'CMSgt';
+      case 'O1':
+        return '2nd Lt';
+      case 'O2':
+        return '1st Lt';
+      case 'O3':
+        return 'Capt';
+      case 'O4':
+        return 'Maj';
+      default:
+        return 'Lt Col';
+    }
+  };
+
   return (
     <div>
       <TableContainer component={Paper}>
@@ -154,7 +187,7 @@ const MemberTable = (props) => {
                 selected={props.selected === member.id}
                 onClick={() => props.changeId(member.id)}
               >
-                <TableCell>{member.grade}</TableCell>
+                <TableCell>{rankSwitch(member.grade)}</TableCell>
                 <TableCell>{member.firstName}</TableCell>
                 <TableCell>{member.lastName}</TableCell>
                 <TableCell>{member.email}</TableCell>

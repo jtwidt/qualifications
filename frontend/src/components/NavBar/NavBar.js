@@ -21,13 +21,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavBar() {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -66,9 +61,9 @@ export default function NavBar() {
             open={open}
             onClose={handleClose}
           >
-            {/* <MenuItem onClick={handleClose}>
-              <Link to="/admin">Member Administration</Link>
-            </MenuItem> */}
+            <MenuItem onClick={handleClose} component={Link} to="/admin">
+              Administration
+            </MenuItem>
             <MenuItem onClick={handleClose} component={Link} to="">
               Member Overview
             </MenuItem>

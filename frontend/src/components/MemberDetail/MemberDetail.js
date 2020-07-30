@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -7,6 +7,7 @@ import {
   Button,
   Container,
   TextField,
+  Divider,
 } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,58 +19,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MemberDetail = ({ member }) => {
-  const [task1Date, setTask1Date] = useState();
   const classes = useStyles();
   const rankSwitch = (grade) => {
     switch (grade) {
       case 'E1':
         return 'AB';
-        break;
       case 'E2':
         return 'Amn';
-        break;
       case 'E3':
         return 'A1C';
-        break;
       case 'E4':
         return 'SrA';
-        break;
       case 'E5':
         return 'SSgt';
-        break;
       case 'E6':
         return 'TSgt';
-        break;
       case 'E7':
         return 'MSgt';
-        break;
       case 'E8':
         return 'SMSgt';
-        break;
       case 'E9':
         return 'CMSgt';
-        break;
       case 'O1':
         return '2nd Lt';
-        break;
       case 'O2':
         return '1st Lt';
-        break;
       case 'O3':
         return 'Capt';
-        break;
       case 'O4':
         return 'Maj';
-        break;
       default:
         return 'Lt Col';
-        break;
     }
   };
-
-  useEffect(() => {
-    setTask1Date(member[0].completionDate);
-  }, []);
 
   return (
     <div style={{ padding: 10 }}>
@@ -92,7 +74,9 @@ const MemberDetail = ({ member }) => {
                 {member[0].user.email}
               </Typography>
             </Grid>
-            <br />
+            <Grid item xs={12}>
+              <Divider variant="middle" />
+            </Grid>
             <Grid container item spacing={1}>
               {member.map((task) => {
                 return (
