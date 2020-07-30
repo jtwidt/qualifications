@@ -43,7 +43,7 @@ const Dashboard = () => {
             <TaskOverview />
           </Route>
           <Route path="/admin">
-            <Admin requery={setRequery} />
+            <Admin />
           </Route>
           <Route>
             <MemberTable

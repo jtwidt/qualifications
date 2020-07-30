@@ -67,7 +67,6 @@ const Admin = (props) => {
       .patch(`http://localhost:8080/users/${member.id}`, member)
       .then(setSnackbarOpen(true));
     setMember(null);
-    props.requery(true);
   };
 
   const renderMember = () => {
