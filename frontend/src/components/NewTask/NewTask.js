@@ -46,7 +46,7 @@ const NewTask = () => {
         onClose={() => setTaskSnackbarOpen(false)}
         message="Task added"
       />
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
         New Task
       </Button>
       <Dialog

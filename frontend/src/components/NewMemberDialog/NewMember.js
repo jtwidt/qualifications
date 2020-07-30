@@ -60,7 +60,7 @@ const NewMember = () => {
         onClose={() => setMemberSnackbarOpen(false)}
         message="Member added"
       />
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
         New Member
       </Button>
       <Dialog

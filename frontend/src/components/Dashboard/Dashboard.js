@@ -11,14 +11,18 @@ const Dashboard = () => {
   const [members, setMembers] = useState([]);
   const [memberId, setMemberId] = useState(null);
   const [selectedMember, setSelectedMember] = useState(null);
+  const [requery, setRequery] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(`http://localhost:8080/users`);
       setMembers(response.data);
+      setRequery(false);
     };
-    fetchData();
-  }, []);
+    if (requery) {
+      fetchData();
+    }
+  }, [requery]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +43,7 @@ const Dashboard = () => {
             <TaskOverview />
           </Route>
           <Route path="/admin">
-            <Admin />
+            <Admin requery={setRequery} />
           </Route>
           <Route>
             <MemberTable
